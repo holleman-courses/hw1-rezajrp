@@ -27,9 +27,9 @@ def build_model1():
     # Layers: Flatten, Dense, Dense, Dense, Dense
     model = keras.Sequential([
         layers.Flatten(input_shape=(32, 32, 3)),
-        layers.Dense(128, activation=keras.layers.LeakyReLU(negative_slope=0.1)),
-        layers.Dense(128, activation=keras.layers.LeakyReLU(negative_slope=0.1)),
-        layers.Dense(128, activation=keras.layers.LeakyReLU(negative_slope=0.1)),
+        layers.Dense(128, activation=keras.layers.LeakyReLU(alpha=0.1)),
+        layers.Dense(128, activation=keras.layers.LeakyReLU(alpha=0.1)),
+        layers.Dense(128, activation=keras.layers.LeakyReLU(alpha=0.1)),
         layers.Dense(10)  # logits
     ])
 
