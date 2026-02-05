@@ -1,12 +1,12 @@
-#!/usr/bin/env python
+# #!/usr/bin/env python
 
 import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
 # TensorFlow and tf.keras
 import tensorflow as tf
-import keras
-from keras import Input, layers, Sequential
+import tf_keras as keras
+from tf_keras import Input, layers, Sequential
 tf.config.optimizer.set_jit(False)
 
 # Helper libraries
@@ -191,7 +191,7 @@ if __name__ == '__main__':
     # ----------------------------------------
     # Build + train model1
     # ----------------------------------------
-    model1_path = "model1_trained.keras" 
+    model1_path = "model1_trained.h5"
     model1 = build_model1()
     model1.summary()
 
@@ -234,7 +234,7 @@ if __name__ == '__main__':
     # ----------------------------------------
     # Build + train model2
     # ----------------------------------------
-    model2_path = "model2_trained.keras"
+    model2_path = "model2_trained.h5"
     model2 = build_model2()
     model2.summary()
 
@@ -265,8 +265,8 @@ if __name__ == '__main__':
 
     class_names = ['airplane','automobile','bird','cat','deer','dog','frog','horse','ship','truck']
 
-    # Example: if your image is named test_image_cat.jpg
-    img_path = "./cat.jpg"  # <-- change to your actual filename
+    
+    img_path = "./cat.jpg"  
 
     if os.path.exists(img_path):
         test_img = np.array(keras.utils.load_img(
@@ -295,7 +295,7 @@ if __name__ == '__main__':
     # ----------------------------------------
     # Build + train model3 (depthwise-separable)
     # ----------------------------------------
-    model3_path = "model3_trained.keras"
+    model3_path = "model3_trained.h5"
     model3 = build_model3()
     model3.summary()
 
