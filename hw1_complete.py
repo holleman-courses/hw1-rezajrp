@@ -24,12 +24,9 @@ except Exception:
     print("Keras Version: (tf.keras bundled with TF)")
 
 
-# -------------------------
-# Model builders (used by autograder)
-# -------------------------
+
 
 def build_model1():
-    # Must match hw1_test.py expected layers/params exactly:
     # ['Flatten', 'Dense', 'Dense', 'Dense', 'Dense']
     model = Sequential([
         layers.Flatten(input_shape=(32, 32, 3)),
@@ -47,7 +44,7 @@ def build_model1():
 
 
 def build_model2():
-    # Must match hw1_test.py expected layers/params exactly
+
     model = Sequential([
         layers.Conv2D(32, (3, 3), strides=(2, 2), padding="same",
                       activation="relu", input_shape=(32, 32, 3)),
@@ -81,8 +78,7 @@ def build_model2():
 
 
 def build_model3():
-    # Must match hw1_test.py expected layers/params exactly:
-    # all convs except the first are separable (per assignment)
+
     model = Sequential([
         layers.SeparableConv2D(32, (3, 3), strides=(2, 2), padding="same",
                                activation="relu", input_shape=(32, 32, 3)),
@@ -200,67 +196,67 @@ if __name__ == "__main__":
         model.save(path)  # .h5 caching to avoid format issues
         return model
 
-    # # -----------------------------
-    # # Model 1
-    # # -----------------------------
-    # model1 = build_model1()
-    # model1.summary()
-    # model1 = train_or_load(model1, "model1_trained.h5", epochs=30)
+    # -----------------------------
+    # Model 1
+    # -----------------------------
+    model1 = build_model1()
+    model1.summary()
+    model1 = train_or_load(model1, "model1_trained.h5", epochs=30)
 
-    # tr_loss, tr_acc = model1.evaluate(train_images, train_labels, verbose=0)
-    # va_loss, va_acc = model1.evaluate(val_images, val_labels, verbose=0)
-    # te_loss, te_acc = model1.evaluate(test_images, test_labels, verbose=0)
-    # print("\nModel1 Final Accuracy:")
-    # print(f"  Train acc: {tr_acc:.4f}")
-    # print(f"  Val   acc: {va_acc:.4f}")
-    # print(f"  Test  acc: {te_acc:.4f}")
+    tr_loss, tr_acc = model1.evaluate(train_images, train_labels, verbose=0)
+    va_loss, va_acc = model1.evaluate(val_images, val_labels, verbose=0)
+    te_loss, te_acc = model1.evaluate(test_images, test_labels, verbose=0)
+    print("\nModel1 Final Accuracy:")
+    print(f"  Train acc: {tr_acc:.4f}")
+    print(f"  Val   acc: {va_acc:.4f}")
+    print(f"  Test  acc: {te_acc:.4f}")
 
-    # # -----------------------------
-    # # Model 2
-    # # -----------------------------
-    # model2 = build_model2()
-    # model2.summary()
-    # model2 = train_or_load(model2, "model2_trained.h5", epochs=30)
+    # -----------------------------
+    # Model 2
+    # -----------------------------
+    model2 = build_model2()
+    model2.summary()
+    model2 = train_or_load(model2, "model2_trained.h5", epochs=30)
 
-    # tr_loss2, tr_acc2 = model2.evaluate(train_images, train_labels, verbose=0)
-    # va_loss2, va_acc2 = model2.evaluate(val_images, val_labels, verbose=0)
-    # te_loss2, te_acc2 = model2.evaluate(test_images, test_labels, verbose=0)
-    # print("\nModel2 Final Accuracy:")
-    # print(f"  Train acc: {tr_acc2:.4f}")
-    # print(f"  Val   acc: {va_acc2:.4f}")
-    # print(f"  Test  acc: {te_acc2:.4f}")
+    tr_loss2, tr_acc2 = model2.evaluate(train_images, train_labels, verbose=0)
+    va_loss2, va_acc2 = model2.evaluate(val_images, val_labels, verbose=0)
+    te_loss2, te_acc2 = model2.evaluate(test_images, test_labels, verbose=0)
+    print("\nModel2 Final Accuracy:")
+    print(f"  Train acc: {tr_acc2:.4f}")
+    print(f"  Val   acc: {va_acc2:.4f}")
+    print(f"  Test  acc: {te_acc2:.4f}")
 
-    # # Custom image prediction (optional)
-    # class_names = ['airplane','automobile','bird','cat','deer','dog','frog','horse','ship','truck']
-    # img_path = "./cat.jpg"
-    # if os.path.exists(img_path):
-    #     test_img = np.array(keras.utils.load_img(
-    #         img_path,
-    #         color_mode="rgb",
-    #         target_size=(32, 32)
-    #     )).astype("float32") / 255.0
-    #     test_img = np.expand_dims(test_img, axis=0)
-    #     logits = model2.predict(test_img, verbose=0)
-    #     pred_class = int(np.argmax(logits, axis=1)[0])
-    #     print(f"\nCustom image prediction for {img_path}:")
-    #     print("  Predicted:", class_names[pred_class])
-    # else:
-    #     print(f"\nCustom image not found: {img_path}")
+    # Custom image prediction (optional)
+    class_names = ['airplane','automobile','bird','cat','deer','dog','frog','horse','ship','truck']
+    img_path = "./cat.jpg"
+    if os.path.exists(img_path):
+        test_img = np.array(keras.utils.load_img(
+            img_path,
+            color_mode="rgb",
+            target_size=(32, 32)
+        )).astype("float32") / 255.0
+        test_img = np.expand_dims(test_img, axis=0)
+        logits = model2.predict(test_img, verbose=0)
+        pred_class = int(np.argmax(logits, axis=1)[0])
+        print(f"\nCustom image prediction for {img_path}:")
+        print("  Predicted:", class_names[pred_class])
+    else:
+        print(f"\nCustom image not found: {img_path}")
 
-    # # -----------------------------
-    # # Model 3
-    # # -----------------------------
-    # model3 = build_model3()
-    # model3.summary()
-    # model3 = train_or_load(model3, "model3_trained.h5", epochs=30)
+    # -----------------------------
+    # Model 3
+    # -----------------------------
+    model3 = build_model3()
+    model3.summary()
+    model3 = train_or_load(model3, "model3_trained.h5", epochs=30)
 
-    # tr_loss3, tr_acc3 = model3.evaluate(train_images, train_labels, verbose=0)
-    # va_loss3, va_acc3 = model3.evaluate(val_images, val_labels, verbose=0)
-    # te_loss3, te_acc3 = model3.evaluate(test_images, test_labels, verbose=0)
-    # print("\nModel3 Final Accuracy:")
-    # print(f"  Train acc: {tr_acc3:.4f}")
-    # print(f"  Val   acc: {va_acc3:.4f}")
-    # print(f"  Test  acc: {te_acc3:.4f}")
+    tr_loss3, tr_acc3 = model3.evaluate(train_images, train_labels, verbose=0)
+    va_loss3, va_acc3 = model3.evaluate(val_images, val_labels, verbose=0)
+    te_loss3, te_acc3 = model3.evaluate(test_images, test_labels, verbose=0)
+    print("\nModel3 Final Accuracy:")
+    print(f"  Train acc: {tr_acc3:.4f}")
+    print(f"  Val   acc: {va_acc3:.4f}")
+    print(f"  Test  acc: {te_acc3:.4f}")
 
     # -----------------------------
     # Best <= 50k params model (must save as best_model.h5 for autograder)
